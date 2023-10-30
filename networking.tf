@@ -29,3 +29,12 @@ resource "ibm_is_subnet" "dr_subnet1" {
   tags            = ["managedby:terraform"]
   depends_on      = [ibm_is_vpc_address_prefix.dr-vpc-prefix1]
 }
+
+#---TG connections from PIO account--------#
+resource "ibm_tg_connection_action" "pio_tg_cross_connection_approval" {
+    #provider       = ibm.account2
+    gateway        =  var.cross_tg_id 
+    connection_id  = var.cross_tg_connection_id
+    action = "approve"
+}
+
