@@ -27,3 +27,12 @@ variable "dr_vpc_prefix1" {
 variable "dr_subnet1" {
   default = "172.29.1.0/24"
 }
+
+
+variable "cross_tg_id" {
+  default = "c78df06b-0f41-43da-8bd6-8da2925ba4c4"
+  }
+
+variable "cross_tg_connection_id" {
+  default = "b662407b-770d-4dea-abe7-fa2095376e8a"   
+}  
