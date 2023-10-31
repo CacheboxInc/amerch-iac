@@ -83,10 +83,44 @@ resource "ibm_is_public_gateway" "PGW_zone1" {
   }
 }
 
+resource "ibm_is_public_gateway" "PGW_zone2" {
+  name           = "${var.unique_id}-pgw2"
+  vpc            = ibm_is_vpc.dr-vpc.id
+  zone           = "${var.ibm_region}-2"
+  tags           = ["managedby:terraform"]
+  resource_group = ibm_resource_group.default_rg.id
+  //User can configure timeouts
+  timeouts {
+    create = "1m"
+  }
+}
+
+resource "ibm_is_public_gateway" "PGW_zone3" {
+  name           = "${var.unique_id}-pgw3"
+  vpc            = ibm_is_vpc.dr-vpc.id
+  zone           = "${var.ibm_region}-3"
+  tags           = ["managedby:terraform"]
+  resource_group = ibm_resource_group.default_rg.id
+  //User can configure timeouts
+  timeouts {
+    create = "1m"
+  }
+}
+
 #---------------public GW attachment-----------#
 resource "ibm_is_subnet_public_gateway_attachment" "pgw_attachment1" {
   subnet         = ibm_is_subnet.dr_subnet1.id
   public_gateway = ibm_is_public_gateway.PGW_zone1.id
+}
+
+resource "ibm_is_subnet_public_gateway_attachment" "pgw_attachment2" {
+  subnet         = ibm_is_subnet.dr_subnet2.id
+  public_gateway = ibm_is_public_gateway.PGW_zone2.id
+}
+
+resource "ibm_is_subnet_public_gateway_attachment" "pgw_attachment3" {
+  subnet         = ibm_is_subnet.dr_subnet3.id
+  public_gateway = ibm_is_public_gateway.PGW_zone3.id
 }
 
 
