@@ -24,15 +24,34 @@ variable "dr_vpc_prefix1" {
   default = "172.29.1.0/24"
 }
 
+variable "dr_vpc_prefix2" {
+  default = "172.29.2.0/24"
+}
+
+variable "dr_vpc_prefix3" {
+  default = "172.29.3.0/24"
+}
+
 variable "dr_subnet1" {
   default = "172.29.1.0/24"
 }
 
+variable "dr_subnet2" {
+  default = "172.29.2.0/24"
+}
+
+variable "dr_subnet3" {
+  default = "172.29.3.0/24"
+}
 
 variable "cross_tg_id" {
   default = "c78df06b-0f41-43da-8bd6-8da2925ba4c4"
-  }
+}
 
 variable "cross_tg_connection_id" {
-  default = "b662407b-770d-4dea-abe7-fa2095376e8a"   
-}  
+  default = "b662407b-770d-4dea-abe7-fa2095376e8a"
+}
+
+variable "dr_reciver_host_profile" {
+  default = "bx2-2x8"
+}

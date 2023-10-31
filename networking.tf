@@ -20,6 +20,25 @@ resource "ibm_is_vpc_address_prefix" "dr-vpc-prefix1" {
   depends_on = [ibm_is_vpc.dr-vpc]
 }
 
+resource "ibm_is_vpc_address_prefix" "dr-vpc-prefix2" {
+  cidr       = var.dr_vpc_prefix2
+  name       = "${var.unique_id}-prefix2"
+  vpc        = ibm_is_vpc.dr-vpc.id
+  zone       = "${var.ibm_region}-2"
+  is_default = true
+  depends_on = [ibm_is_vpc.dr-vpc]
+}
+
+resource "ibm_is_vpc_address_prefix" "dr-vpc-prefix3" {
+  cidr       = var.dr_vpc_prefix3
+  name       = "${var.unique_id}-prefix3"
+  vpc        = ibm_is_vpc.dr-vpc.id
+  zone       = "${var.ibm_region}-3"
+  is_default = true
+  depends_on = [ibm_is_vpc.dr-vpc]
+}
+
+
 resource "ibm_is_subnet" "dr_subnet1" {
   name            = "${var.unique_id}-subnet1"
   vpc             = ibm_is_vpc.dr-vpc.id
@@ -29,24 +48,45 @@ resource "ibm_is_subnet" "dr_subnet1" {
   tags            = ["managedby:terraform"]
   depends_on      = [ibm_is_vpc_address_prefix.dr-vpc-prefix1]
 }
- 
+
+resource "ibm_is_subnet" "dr_subnet2" {
+  name            = "${var.unique_id}-subnet2"
+  vpc             = ibm_is_vpc.dr-vpc.id
+  zone            = "${var.ibm_region}-2"
+  ipv4_cidr_block = var.dr_subnet2
+  resource_group  = ibm_resource_group.default_rg.id
+  tags            = ["managedby:terraform"]
+  depends_on      = [ibm_is_vpc_address_prefix.dr-vpc-prefix2]
+}
+
+resource "ibm_is_subnet" "dr_subnet3" {
+  name            = "${var.unique_id}-subnet3"
+  vpc             = ibm_is_vpc.dr-vpc.id
+  zone            = "${var.ibm_region}-3"
+  ipv4_cidr_block = var.dr_subnet3
+  resource_group  = ibm_resource_group.default_rg.id
+  tags            = ["managedby:terraform"]
+  depends_on      = [ibm_is_vpc_address_prefix.dr-vpc-prefix3]
+}
+
+
 #----------------public GW--------------------#
 resource "ibm_is_public_gateway" "PGW_zone1" {
-  name            =  "${var.unique_id}-pgw1"
-  vpc             =  ibm_is_vpc.dr-vpc.id
-  zone            =  "${var.ibm_region}-1"
-  tags            = ["managedby:terraform"]
-  resource_group  = ibm_resource_group.default_rg.id
+  name           = "${var.unique_id}-pgw1"
+  vpc            = ibm_is_vpc.dr-vpc.id
+  zone           = "${var.ibm_region}-1"
+  tags           = ["managedby:terraform"]
+  resource_group = ibm_resource_group.default_rg.id
   //User can configure timeouts
   timeouts {
     create = "1m"
   }
 }
- 
+
 #---------------public GW attachment-----------#
 resource "ibm_is_subnet_public_gateway_attachment" "pgw_attachment1" {
-  subnet                = ibm_is_subnet.dr_subnet1.id
-  public_gateway        = ibm_is_public_gateway.PGW_zone1.id
+  subnet         = ibm_is_subnet.dr_subnet1.id
+  public_gateway = ibm_is_public_gateway.PGW_zone1.id
 }
 
 
