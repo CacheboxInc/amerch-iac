@@ -7,7 +7,7 @@ resource "ibm_is_security_group" "receiver-sg" {
 resource "ibm_is_security_group_rule" "receiver-sg-rule1" {
   group     = ibm_is_security_group.receiver-sg.id
   direction = "inbound"
-  remote    = "192.168.220.4/32"
+  remote    = "192.168.220.5/32"
   tcp {
     port_min = 22
     port_max = 22
