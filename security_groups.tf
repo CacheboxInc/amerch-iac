@@ -40,6 +40,46 @@ resource "ibm_is_security_group" "receiver-alb-sg" {
   resource_group = ibm_resource_group.default_rg.id
 }
 
+resource "ibm_is_security_group_rule" "receiver-alb-sg-rule-10-87-0-0" {
+  group     = ibm_is_security_group.receiver-alb-sg.id
+  direction = "inbound"
+  remote    = "10.87.0.0/16"
+  tcp {
+    port_min = 7100
+    port_max = 7100
+  }
+}
+
+resource "ibm_is_security_group_rule" "receiver-alb-sg-rule-10-184-0-0" {
+  group     = ibm_is_security_group.receiver-alb-sg.id
+  direction = "inbound"
+  remote    = "10.184.0.0/16"
+  tcp {
+    port_min = 7100
+    port_max = 7100
+  }
+}
+
+resource "ibm_is_security_group_rule" "receiver-alb-sg-rule-10-185-0-0" {
+  group     = ibm_is_security_group.receiver-alb-sg.id
+  direction = "inbound"
+  remote    = "10.185.0.0/16"
+  tcp {
+    port_min = 7100
+    port_max = 7100
+  }
+}
+
+resource "ibm_is_security_group_rule" "receiver-alb-sg-rule-10-122-112-0" {
+  group     = ibm_is_security_group.receiver-alb-sg.id
+  direction = "inbound"
+  remote    = "10.122.112.0/24"
+  tcp {
+    port_min = 7100
+    port_max = 7100
+  }
+}
+
 resource "ibm_is_security_group_rule" "receiver-alb-sg-rule1" {
   group     = ibm_is_security_group.receiver-alb-sg.id
   direction = "inbound"
@@ -54,8 +94,4 @@ resource "ibm_is_security_group_rule" "receiver-alb-sg-rule2" {
   group     = ibm_is_security_group.receiver-alb-sg.id
   direction = "outbound"
   remote    = "0.0.0.0/0"
-  # tcp {
-  #   port_min = 1
-  #   port_max = 65535
-  # }
 }
