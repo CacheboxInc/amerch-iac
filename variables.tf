@@ -55,3 +55,23 @@ variable "cross_tg_connection_id" {
 variable "dr_reciver_host_profile" {
   default = "bx2-2x8"
 }
+
+variable "dal1_peer_vpngw_ip" {
+  default = "52.118.186.49"
+}
+
+variable "dal2_peer_vpngw_ip" {
+  default = "150.239.171.84"
+}
+
+variable "passphrase_key" {
+  default = "15c585864a074a98936fdc346e6fd8ed357ebe0db7b00f0c4edd5bbd"
+}
+
+variable "dal1_peer_cidrs" {
+  default = ["192.168.220.0/24", "192.168.222.0/24"]
+}
+
+variable "dal2_peer_cidrs" {
+  default = ["192.168.221.0/24", "192.168.223.0/24"]
+}
