@@ -95,3 +95,53 @@ resource "ibm_is_security_group_rule" "receiver-alb-sg-rule2" {
   direction = "outbound"
   remote    = "0.0.0.0/0"
 }
+
+#------------------ESXi SG----------------#
+resource "ibm_is_security_group" "esxi-sg" {
+  name           = "${var.unique_id}-esxi-sg"
+  vpc            = ibm_is_vpc.dr-vpc.id
+  resource_group = ibm_resource_group.default_rg.id
+}
+
+resource "ibm_is_security_group_rule" "ingress_esxi_prod_dal_jumphost_public" {
+  group     = ibm_is_security_group.esxi-sg.id
+  direction = "inbound"
+  remote    = "150.240.163.91/32"
+}
+
+resource "ibm_is_security_group_rule" "ingress_esxi_prod_dal_jumphost_private" {
+  group     = ibm_is_security_group.esxi-sg.id
+  direction = "inbound"
+  remote    = "192.168.220.5/24"
+}
+
+resource "ibm_is_security_group_rule" "ingress_esxi_internal_all" {
+  group     = ibm_is_security_group.esxi-sg.id
+  direction = "inbound"
+  remote    = "10.0.0.0/8"
+}
+
+resource "ibm_is_security_group_rule" "ingress__esxi_vpc1_all" {
+  group     = ibm_is_security_group.esxi-sg.id
+  direction = "inbound"
+  remote    = var.dr_vpc_prefix1
+}
+
+resource "ibm_is_security_group_rule" "ingress__esxi_vpc2_all" {
+  group     = ibm_is_security_group.esxi-sg.id
+  direction = "inbound"
+  remote    = var.dr_vpc_prefix2
+}
+
+resource "ibm_is_security_group_rule" "ingress__esxi_vpc3_all" {
+  group     = ibm_is_security_group.esxi-sg.id
+  direction = "inbound"
+  remote    = var.dr_vpc_prefix3
+}
+
+# allow all outbound network traffic 
+resource "ibm_is_security_group_rule" "egress_all_esxi" {
+  group     = ibm_is_security_group.esxi-sg.id
+  direction = "outbound"
+  remote    = "0.0.0.0/0"
+}
