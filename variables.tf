@@ -53,7 +53,7 @@ variable "cross_tg_connection_id" {
 }
 
 variable "dr_reciver_host_profile" {
-  default = "bx2-2x8"
+  default = "bx2-16x64"
 }
 
 #############################
