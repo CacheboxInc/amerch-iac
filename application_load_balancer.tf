@@ -35,24 +35,17 @@ resource "ibm_is_lb_pool_member" "dr-receivers_member_1" {
   target_address = ibm_is_instance.receiver-prod1.primary_network_interface.0.primary_ip.0.address
 }
 
-resource "ibm_is_lb_pool_member" "dr-receivers_member_2" {
-  lb             = ibm_is_lb.dr-receivers.id
-  pool           = ibm_is_lb_pool.dr-receivers.id
-  port           = 7100
-  target_address = ibm_is_instance.receiver-prod2.primary_network_interface.0.primary_ip.0.address
-}
+# resource "ibm_is_lb_pool_member" "dr-receivers_member_2" {
+#   lb             = ibm_is_lb.dr-receivers.id
+#   pool           = ibm_is_lb_pool.dr-receivers.id
+#   port           = 7100
+#   target_address = ibm_is_instance.receiver-prod2.primary_network_interface.0.primary_ip.0.address
+# }
 
-resource "ibm_is_lb_pool_member" "dr-receivers_member_3" {
+resource "ibm_is_lb_pool_member" "dr-receivers_member_5" {
   lb             = ibm_is_lb.dr-receivers.id
   pool           = ibm_is_lb_pool.dr-receivers.id
   port           = 7100
-  target_address = ibm_is_instance.receiver-prod3.primary_network_interface.0.primary_ip.0.address
-}
-
-resource "ibm_is_lb_pool_member" "dr-receivers_member_4" {
-  lb             = ibm_is_lb.dr-receivers.id
-  pool           = ibm_is_lb_pool.dr-receivers.id
-  port           = 7100
-  target_address = ibm_is_instance.receiver-prod4.primary_network_interface.0.primary_ip.0.address
+  target_address = ibm_is_instance.receiver-prod5.primary_network_interface.0.primary_ip.0.address
 }
 

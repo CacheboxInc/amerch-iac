@@ -7,7 +7,7 @@ resource "ibm_is_security_group" "receiver-sg" {
 resource "ibm_is_security_group_rule" "receiver-sg-rule1" {
   group     = ibm_is_security_group.receiver-sg.id
   direction = "inbound"
-  remote    = "192.168.220.5/32"
+  remote    = "192.168.220.0/24"
   tcp {
     port_min = 22
     port_max = 22
@@ -112,7 +112,7 @@ resource "ibm_is_security_group_rule" "ingress_esxi_prod_dal_jumphost_public" {
 resource "ibm_is_security_group_rule" "ingress_esxi_prod_dal_jumphost_private" {
   group     = ibm_is_security_group.esxi-sg.id
   direction = "inbound"
-  remote    = "192.168.220.5/24"
+  remote    = "192.168.220.0/24"
 }
 
 resource "ibm_is_security_group_rule" "ingress_esxi_internal_all" {
